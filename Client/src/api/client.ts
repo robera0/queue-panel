@@ -1,11 +1,12 @@
 import type { ApiEnvelope, QueuesResponse } from "../types/queue";
 
-// Set VITE_API_BASE_URL in .env (see .env.example). Falls back to
-// localhost:5000, which is app.py's default (FLASK_PORT).
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:5000";
 
 class ApiError extends Error {
-  constructor(message: string, public status?: number) {
+  constructor(
+    message: string,
+    public status?: number,
+  ) {
     super(message);
     this.name = "ApiError";
   }
@@ -22,10 +23,15 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     throw new ApiError("Can't reach the queue server. Is app.py running?");
   }
 
-  const body = (await res.json().catch(() => null)) as ApiEnvelope<unknown> | null;
+  const body = (await res
+    .json()
+    .catch(() => null)) as ApiEnvelope<unknown> | null;
 
   if (!res.ok || body?.status === "error") {
-    throw new ApiError(body?.message ?? `Request failed (${res.status})`, res.status);
+    throw new ApiError(
+      body?.message ?? `Request failed (${res.status})`,
+      res.status,
+    );
   }
   return body as T;
 }
