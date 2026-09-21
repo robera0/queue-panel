@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/api/client.ts","./src/components/AgentRow.tsx","./src/components/CallerRow.tsx","./src/components/Header.tsx","./src/components/QueueCard.tsx","./src/hooks/useQueues.ts","./src/types/queue.ts"],"version":"5.9.3"}
